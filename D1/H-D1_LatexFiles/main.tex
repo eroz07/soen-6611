@@ -1,0 +1,45 @@
+\documentclass[a4paper]{report}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tabularx}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+% \usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{METRICSTICS}
+\author{ Prof. PANKAJ KAMTHAN }
+
+\usepackage{titlesec}
+\titleformat
+{\chapter} % command
+{\bfseries\Large} % format
+{} % label
+{0.5ex} % sep
+{
+    \rule{\textwidth}{1pt}
+    \centering
+} % before-code
+[
+\vspace{-0.5ex}%
+\rule{\textwidth}{0.3pt}
+] % after-code
+
+
+\begin{document}
+\input{title/title.tex}
+\input{sections/project.tex}
+\input{sections/section1.tex}
+\input{sections/section2.tex}
+\input{sections/conclusion.tex}
+
+
+\end{document}
