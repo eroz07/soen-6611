@@ -11,7 +11,7 @@ class Calculator:
     self.data = None
 
   def is_data_exists(self):
-    if self.data == None or self.data.size == 0:
+    if self.data == None or len(self.data) == 0:
       raise InvalidDataError()
 
   # get the min value from dataset
@@ -48,9 +48,11 @@ class Calculator:
   # even: the arithmetic mean of the two middle numbers
   def get_median(self):
     self.is_data_exists()
-    mid = len(self.data) / 2
+    mid = int(len(self.data) / 2)
     if (len(self.data) % 2 == 0):
       return (self.data[mid] + self.data[mid - 1]) / 2
+    else:
+      return self.data[mid]
     
   # get the arithmetic mean of the dataset
   def get_arithmetic_mean(self):
@@ -81,3 +83,4 @@ class Calculator:
     n = 1
     for _ in range(10):
         n = (n + value/n) * 0.5
+    return n
