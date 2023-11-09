@@ -25,7 +25,9 @@ output_label.pack(side="top", anchor="w")
 output_text = tk.Text(root, height=3, width=40, state="disabled")
 output_text.pack(fill=tk.BOTH, expand=True)
 
-def change_output(func):
+def calculate_input(func):
+    input_array = [int(x.strip()) for x in input_text.get("1.0",tk.END).split(',')]
+    calc.set_data(input_array)
     output_text.configure(state="normal")
     output_text.delete('1.0', tk.END)
     output_text.insert("1.0", str(func()))
@@ -41,7 +43,7 @@ operations = {
 }
 
 for index, key in enumerate(operations):
-    operation_button = tk.Button(operations_frame, text=key, command= lambda func = operations[key]: change_output(func))
+    operation_button = tk.Button(operations_frame, text=key, command= lambda func = operations[key]: calculate_input(func))
     operation_button.pack(side="left", padx=10, pady=10)
 
 root.mainloop()
