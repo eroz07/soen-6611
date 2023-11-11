@@ -1,5 +1,3 @@
-from exception.InvalidDataError import InvalidDataError
-
 class Calculator: 
   def __init__(self, data):
     self.data = data
@@ -12,7 +10,7 @@ class Calculator:
 
   def is_data_exists(self):
     if self.data == None or len(self.data) == 0:
-      raise InvalidDataError()
+      raise Exception("No values to calculate")
 
   # get the min value from dataset
   def get_min(self):
