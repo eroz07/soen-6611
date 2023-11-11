@@ -7,11 +7,14 @@ from tkinter.filedialog import askopenfile
 from tkinter import messagebox
 
 def browse_csv():
-    file = askopenfile(parent= root, mode='r', filetypes=[("CSV Files","*.csv")], title='Choose a file')
-    if file is not None:
-        csv_worker = csv_processor.CsvProcessor(file)
-        input_data = csv_worker.read_csv_and_validate()
-        input_text.insert('1.0', ','.join([str(i) for i in input_data]))
+    try:
+        file = askopenfile(parent= root, mode='r', filetypes=[("CSV Files","*.csv")], title='Choose a file')
+        if file is not None:
+            csv_worker = csv_processor.CsvProcessor(file)
+            input_data = csv_worker.read_csv_and_validate()
+            input_text.insert('1.0', ','.join([str(i) for i in input_data]))
+    except Exception as e:
+       messagebox.showerror("Error", e)
 
 # create window
 root = tk.Tk()

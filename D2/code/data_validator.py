@@ -1,10 +1,10 @@
-import exception.InvalidDataError as InvalidDataError
-
 class DataValidator:
   def __init__(self) -> None:
     pass
 
   def process(self, str_data):
+    if str_data == None or len(str_data.strip()) == 0:
+      raise Exception("No values to calculate")
     return [self.validate(x) for x in str_data.split(',')]
       
   def validate(self, value):
