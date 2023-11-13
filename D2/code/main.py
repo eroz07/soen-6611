@@ -12,6 +12,7 @@ def browse_csv():
         if file is not None:
             csv_worker = csv_processor.CsvProcessor(file)
             input_data = csv_worker.read_csv_and_validate()
+            input_text.delete('1.0', tk.END)
             input_text.insert('1.0', ','.join([str(i) for i in input_data]))
     except Exception as e:
        messagebox.showerror("Error", e)
