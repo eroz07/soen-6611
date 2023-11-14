@@ -84,6 +84,7 @@ output_text.pack(fill=tk.BOTH, expand=True)
 operations = {
     "Minimum" : lambda: calc.get_min(),
     "Maximum": lambda: calc.get_max(),
+    "Mode": lambda: calc.get_mode(),
     "Median": lambda: calc.get_median(),
     "Arithmetic Mean": lambda: calc.get_arithmetic_mean(),
     "MAD": lambda: calc.get_mean_abs_deviation(),

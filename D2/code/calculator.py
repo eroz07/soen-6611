@@ -39,7 +39,7 @@ class Calculator:
         dict[item] = dict.get(item, 0) + 1
         if dict[item] >= count :
             count, mode = dict[item], item
-    return(mode)
+    return str(mode) + ": " + str(count) + " count(s)"
   
   # get the median, if n is:
   # odd: the middle number
