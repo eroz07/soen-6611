@@ -1,7 +1,8 @@
 import tkinter as tk
-import calculator as calculator
-import data_validator as data_validator
-import csv_processor as csv_processor
+import calculator 
+import data_validator
+import csv_processor
+import random
 
 from tkinter.filedialog import askopenfile
 from tkinter import messagebox
@@ -16,6 +17,34 @@ def browse_csv():
             input_text.insert('1.0', ','.join([str(i) for i in input_data]))
     except Exception as e:
        messagebox.showerror("Error", e)
+
+def calculate_input(func):
+    try: 
+        input_array = validator.process(input_text.get("1.0",tk.END))
+        calc.set_data(input_array)
+        output_text.configure(state="normal")
+        output_text.delete('1.0', tk.END)
+        output_text.insert("1.0", str(func()))
+        output_text.configure(state="normal")
+    except Exception as e:
+       messagebox.showerror("Error", e)
+
+def generate():
+    try:
+        input_array = generate_random(1000)
+        input_data = validator.process(','.join([str(i) for i in input_array]))
+        input_text.delete('1.0', tk.END)
+        input_text.insert('1.0', ','.join([str(i) for i in input_data]))
+
+    except Exception as e:
+       messagebox.showerror("Error", e)
+
+def generate_random(numbers):
+    random_numbers = []
+    for i in range(0, numbers):
+        new_rand = random.randint(1, 1000)
+        random_numbers.append(new_rand)
+    return random_numbers
 
 # create window
 root = tk.Tk()
@@ -32,8 +61,11 @@ input_label.pack(side="left", anchor="w")
 input_text = tk.Text(root, height=20, width=40)
 input_text.pack(fill=tk.BOTH, expand=True)
 
-upload_button = tk.Button(input_frame,text="Upload sales data", command=lambda: browse_csv())
+upload_button = tk.Button(input_frame,text="Upload data", command=lambda: browse_csv())
 upload_button.pack(side="right", padx=10, pady=10)
+
+generate_button = tk.Button(input_frame,text="Generate data", command=lambda: generate())
+generate_button.pack(side="right", padx=10, pady=10)
 
 # buttons
 operations_frame = tk.Frame(root)
@@ -48,17 +80,6 @@ output_label.pack(side="top", anchor="w")
 
 output_text = tk.Text(root, height=3, width=40, state="disabled")
 output_text.pack(fill=tk.BOTH, expand=True)
-
-def calculate_input(func):
-    try: 
-        input_array = validator.process(input_text.get("1.0",tk.END))
-        calc.set_data(input_array)
-        output_text.configure(state="normal")
-        output_text.delete('1.0', tk.END)
-        output_text.insert("1.0", str(func()))
-        output_text.configure(state="normal")
-    except Exception as e:
-       messagebox.showerror("Error", e)
 
 operations = {
     "Minimum" : lambda: calc.get_min(),
