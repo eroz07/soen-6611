@@ -32,7 +32,18 @@ A system to analyse sales performance data has been developed by implementing ME
     ├── demo    # Steps taken from running the project to generating the output
     ├── docs    # Documents, reports, etc.
     ├── input   # Input test files
-    ├── output  # Output to tests ran
-    └── test    # Test files to verify the output of METRICSTICS
+    └── output  # Output to tests ran
 
 ```
+
+## Test files
+
+### Input files
+
+- Input files with the prefix `input{x}_{xxx},csv` were used to test the csv upload function (labelled as the `Upload data` button)
+- Input files with the prefix `random{x}.csv` were values generated from the button labelled as `Generate data`. These values were copied into a csv file for tracing and verification purposes for the input and their corresponding outputs produced.
+
+### Output files
+
+- Output files are prefixed with the input file name and the functions they have performed so that they can be easily identified and verified.
+- For example, the `Mininum` screenshot for `random1.csv` is named as `random1_min.png`, the `Standard Deviation` for `input1_sequential.csv` is named as `input1_standarddeviation.png`, etc
