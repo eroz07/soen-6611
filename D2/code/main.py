@@ -31,7 +31,7 @@ def calculate_input(func):
 
 def generate():
     try:
-        input_array = generate_random(1000)
+        input_array = generate_random(get_generate_input_text())
         input_data = validator.process(','.join([str(i) for i in input_array]))
         input_text.delete('1.0', tk.END)
         input_text.insert('1.0', ','.join([str(i) for i in input_data]))
@@ -39,10 +39,21 @@ def generate():
     except Exception as e:
        messagebox.showerror("Error", e)
 
+def get_generate_input_text():
+    try:
+        number = int(generate_input_text.get())
+    except:
+        raise Exception("Invalid value inserted. Please insert a valid number.")
+
+    if(number < 1000) :
+        raise Exception("Please enter a number above 1000 to generate.")
+    
+    return number
+
 def generate_random(numbers):
     random_numbers = []
     for i in range(0, numbers):
-        new_rand = random.randint(1, 1000)
+        new_rand = random.randint(0, 1000)
         random_numbers.append(new_rand)
     return random_numbers
 
@@ -66,6 +77,10 @@ upload_button.pack(side="right", padx=10, pady=10)
 
 generate_button = tk.Button(input_frame,text="Generate data", command=lambda: generate())
 generate_button.pack(side="right", padx=10, pady=10)
+
+generate_input_text = tk.Entry(input_frame)
+generate_input_text.pack(side="right")
+generate_input_text.insert(0, '1000')
 
 # buttons
 operations_frame = tk.Frame(root)
