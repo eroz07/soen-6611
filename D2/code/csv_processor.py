@@ -1,4 +1,3 @@
-import csv
 import data_validator as data_validator
 
 class CsvProcessor:  
