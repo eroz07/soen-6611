@@ -1,0 +1,69 @@
+\documentclass[a4paper]{report}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tabularx, longtable}
+\usepackage[hidelinks]{hyperref}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+% \usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+%% graph packages
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% We will externalize the figures
+\usepgfplotslibrary{external}
+\tikzexternalize
+
+\title{METRICSTICS}
+\author{ Prof. PANKAJ KAMTHAN }
+
+\usepackage{titlesec}
+\titleformat
+{\chapter} % command
+{\bfseries\Large} % format
+{} % label
+{0.5ex} % sep
+{
+    \rule{\textwidth}{1pt}
+    \centering
+} % before-code
+[
+\vspace{-0.5ex}%
+\rule{\textwidth}{0.3pt}
+] % after-code
+
+
+% Update supervisor and other title stuff in title/title.tex
+
+\begin{document}
+\input{title/title.tex}
+
+\tableofcontents
+% \listoffigures
+% \listoftables
+
+% \input{sections/introduction}
+\input{sections/project.tex}
+\input{sections/section1.tex}
+\input{sections/section2.tex}
+\input{sections/section3.tex}
+\input{sections/section4.tex}
+\input{sections/section5.tex}
+\input{sections/section6.tex}
+
+% \input{appendix/appendix.tex}
+
+\bibliographystyle{acm}
+\bibliography{sections/references}
+
+\end{document}

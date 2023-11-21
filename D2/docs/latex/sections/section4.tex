@@ -1,0 +1,187 @@
+\section{Problem 6: Object-oriented Metrics}
+
+\subsection{Calculating the Object-Oriented Metrics - WMC, CF \& LCOM}
+
+\begin{enumerate}
+\item \textbf{Weighted Method Count (WMC)}\\
+The weighted method count (WMC) is calculated by assigning complexity values (A-values) to each method based on their cyclomatic complexity:
+\begin{enumerate}
+    \item Calculator Class\\
+    \begin{enumerate}
+         \item Calculator.is\_data\_exists - A(3)
+         \item Calculator.get\_min - A(3)
+         \item Calculator.get\_max - A(3)
+         \item Calculator.get\_mode - A(3)
+         \item Calculator.get\_median - A(2)
+         \item Calculator.get\_arithmetic\_mean - A(2)
+         \item Calculator.get\_mean\_abs\_deviation - A(2)
+         \item Calculator.get\_standard\_deviation - A(2)
+         \item Calculator.sqrt - A(2)
+         \item Calculator.\_\_init\_\_ - A(1)
+         \item Calculator.set\_data - A(1)
+         \item Calculator.clear\_data - A(1)
+    \end{enumerate}
+    \vspace{12pt}
+    \begin{align}
+        WMC     &= 3 + 3 + 3 + 3 + 2 + 2 + 2 + 2 + 2 + 1 + 1 + 1 \\
+                &= 22
+    \end{align}
+    Therefore, the WMC of the \texttt{Calculator} class is 22.\\
+
+    \item CsvProcessor Class\\
+    \begin{enumerate}
+         \item CsvProcessor.\_\_init\_\_ - A(1)
+         \item CsvProcessor.read\_csv\_and\_validate - A(1)
+    \end{enumerate}
+    \vspace{12pt}
+    
+    \begin{align}
+        WMC     &= 1 + 1 \\
+                &= 2
+    \end{align}
+    Therefore, the WMC of the \texttt{CsvProcessor} class is 2.\\
+
+    \item DataValidator Class\\
+    \begin{enumerate}
+        \item DataValidator.process - A(4)
+        \item DataValidator.validate - A(2)
+        \item DataValidator.\_\_init\_\_ - A(1)
+    \end{enumerate}
+    \vspace{12pt}
+    
+    \begin{align}
+        WMC     &= 4 + 2 + 1 \\
+                &= 7
+    \end{align}
+    Therefore, the WMC of the \texttt{DataValidator} class is 7.\\
+\end{enumerate}
+
+\item\textbf{Coupling Factor (CF)}\\
+\textbf{Relationships}
+\begin{enumerate}
+    \item \texttt{IsClient(Calculator, CsvProcessor)}: \\
+    Established when creating a \texttt{CsvProcessor instance} in \texttt{browse\_csv()}
+    \item IsClient(Calculator, DataValidator): \\
+    Established when creating a DataValidator instance in \texttt{browse\_csv()}
+    \item \texttt{IsClient(CsvProcessor, Calculator)}: \\
+    Established when calling \texttt{CsvProcessor.read\_csv\_and\_validate()}
+    \item \texttt{IsClient(CsvProcessor, DataValidator)}:\\ Established when creating a DataValidator instance in \texttt{read\_csv\_and\_validate()}
+    \item \texttt{IsClient(DataValidator, Calculator)}: \\
+    Established when calling \texttt{DataValidator.process(input\_text.get("1.0", tk.END))} in \texttt{calculate\_input()}.
+    \item \texttt{IsClient(DataValidator, CsvProcessor)}: \\
+    Established when calling \texttt{DataValidator.process(content)} in \texttt{read\_csv\_and\_validate()}.
+    \item \texttt{IsClient(DataValidator, CsvProcessor)}: \\
+    Additional relationship when calling \texttt{DataValidator.process(content)} in \\\texttt{read\_csv\_and\_validate()}
+\end{enumerate}
+\vspace{10pt}
+\begin{align}
+    CF  &= \frac{1+1+1+1+1+1+1}{3^{2}-3} \\        
+        &= \frac{7}{6}
+\end{align}
+
+\item\textbf{Lack of Cohesion of Methods (LCOM)}
+\begin{enumerate}
+    \item Calculator Class\\
+    \begin{enumerate}
+        \item Methods:
+        \begin{enumerate}
+            \item[--] \_\_init\_\_: Initializes the self.data attribute
+            \item[--] set\_data: Sets the value of self.data
+            \item[--] clear\_data: Sets self.data to None
+            \item[--] is\_data\_exists: Checks if self.data is not None and not empty
+            \item[--] get\_min, get\_max, get\_mode, get\_median, get\_arithmetic\_mean, get\_mean\_abs\_deviation, get\_standard\_deviation: All these methods access self.data to perform statistical calculations
+            \item[--] sqrt: Uses babylonian method to calculate the square root (approximates a hypotenuse)
+        \end{enumerate}
+        \item Analysis:
+        \begin{enumerate}
+            \item[--] Attributes: self.data
+            \item[--] Total Methods (m): 9
+            \item[--] Number of Attributes (a): 1
+            \begin{align}
+                LCOM    &= \frac{1}{1*9 - 9(1-9)} \\        
+                        &= \frac{1}{9+72} \\  
+                        &= \frac{1}{81} \\
+                        &\approx	 0.0123
+            \end{align}
+        \end{enumerate}
+    \end{enumerate}
+    \item CsvProcessor Class\\
+    \begin{enumerate}
+        \item Methods:
+        \begin{enumerate}
+            \item[--] \_\_init\_\_: Initializes the self.file attribute
+            \item[--] read\_csv\_and\_validate: Reads the content of the file, creates an instance of DataValidator, and then calls the process method on that instance
+        \end{enumerate}
+        \item Analysis:
+        \begin{enumerate}
+            \item[--] Attributes: self.file, instance of DataValidator
+            \item[--] Total Methods (m): 2
+            \item[--] Number of Attributes (a): 2
+            \begin{align}
+                LCOM    &= \frac{1}{2*2 - 2(1-2)} \\        
+                        &= \frac{1}{6} \\
+                        &\approx	 0.1667
+            \end{align}
+        \end{enumerate}
+    \end{enumerate}
+    \item DataValidator Class\\
+    \begin{enumerate}
+        \item Methods:
+        \begin{enumerate}
+            \item[--] \_\_init\_\_: Initializes the instance of the class
+            \item[--] process: Takes a string str\_data as input, checks if it's not None and not empty, and then calls the validate method for each value obtained by splitting str\_data
+            \item[--] validate: Takes a value as input, strips whitespace, checks if it's numeric, and raises an exception if not. Returns the integer value.
+        \end{enumerate}
+        \item Analysis:
+        \begin{enumerate}
+            \item[--] Attributes: self.data
+            \item[--] Total Methods (m): 3
+            \item[--] Number of Attributes (a): 1
+            \begin{align}
+                LCOM    &= \frac{1}{1*3 - 3(1-3)} \\        
+                        &= \frac{1}{9} \\ 
+                        &\approx	 0.1111
+            \end{align}
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+\end{enumerate}
+
+\subsection{Qualitative Conclusions}
+\begin{enumerate}
+
+\item \textbf{Weighted Method Count (WMC)}\\
+\begin{enumerate}
+    \item Calculator Class (WMC = 22):
+    \begin{enumerate}
+        \item The complexity of the Calculator class is indicated by its comparatively high WMC. 
+        \item Various methods, such get\_min and get\_max, add to the total complexity.
+    \end{enumerate}
+    \item CsvProcessor  Class (WMC = 2):
+    \begin{enumerate}
+        \item The low WMC of the CsvProcessor class indicates a lesser level of complexity. 
+        \item This class appears to have fewer methods and simpler functionality.
+    \end{enumerate}
+    
+    \item DataValidator Class (WMC = 7):
+    \begin{enumerate}
+        \item The moderate WMC of the DataValidator class indicates moderate complexity. 
+        \item A major factor in the total complexity of the class is the process method.
+    \end{enumerate}
+\end{enumerate}
+
+\item \textbf{Coupling Factor (CF)}\\
+The object-oriented design (OOD) has a moderate level of coupling between classes, as shown by the computed Coupling Factor (CF) of roughly 1.17. The research highlights how classes interact in a balanced way, with a focus on flexibility and maintainability. The new relationship, which suggests well-distributed interactions without excessive reliance, confirms the modest coupling of the design. This complies with sound design guidelines and makes the system more flexible and cohesive.
+
+\item \textbf{Lack of Cohesion of Methods (LCOM*)}\\
+The coherence of practises and characteristics within each class is revealed by the LCOM5 scores. Higher cohesiveness is indicated by lower LCOM5 values, which imply closer relationships between methods inside a class. The following are the outcomes: 
+ \begin{enumerate}
+     \item Calculator Class: LCOM* with a range of 0.0123 (Weak cohesiveness; approaches are tangentially connected) 
+     \item CsvProcessor Class: LCOM* approximately 0.1667 (Moderate cohesiveness; moderate relationship between approaches) 
+     \item DataValidator Class: LCOM* approximately 0.1111 (Moderate cohesiveness; methods are moderately connected)
+ \end{enumerate}
+ 
+ These numbers imply that the cohesion of the classes is generally moderate, with Calculator having the lowest cohesion.  
+ 
+\end{enumerate}
+\pagebreak
